@@ -1,0 +1,112 @@
+Automatic Eggdrop Installer, a brief overview
+=============================================
+
+1.1 What is AEI?
+1.2 Where can I obtain AEI?
+1.3 Are there any limitations to AEI?
+1.4 Contacting AEI's developer
+2.1 About the Engine
+2.2 Installing
+2.3 Directives and Syntax
+3.1 The Future
+
+
+1.1 What is AEI?
+================
+AEI stands for Automatic Eggdrop Installer. It is a simple shell script
+done in Tcl to ease the process of installing an eggdrop plus to newbify 
+its procedural installation/configuration. AEI is not meant to stop world
+hunger, bring global peace, et cetera, it is just a simple shell script
+to simplify others' lives.
+
+1.2 Where can I obtain AEI?
+===========================
+http://www.sourceforge.net/projects/aei/
+
+1.3 Are there any limitations to AEI?
+=====================================
+In the legal world, yes there are limitations to AEI and the grounds on how
+it may be used. AEI is bound to the BSD license, which, someday, will accompany
+releases. Until then however, let it be noted that AEI is in fact bound to 
+BSD's licensing and whatever Berkley says, goes.
+
+1.4 Contacting AEI's developer
+==============================
+You may reach me (Matt Saladna) through e-mail at msaladna@intercarve.net
+Be aware though, I will not answer a 'HELP ME PLS!!! UR PROGRAM SUX!!!!'. 
+If you have a question, comment, and so on... try to enclose it in an 
+intelligent statement.
+
+
+2.1 About the Engine
+====================
+The engine is a very primitive regular expression-based engine. The core
+is only about fifty lines; however, there are plans to expand its usage
+based upon feedback. If there are any incongruities in the system or bugs,
+feel free to contact me about it. One imporant note, pd: and ud: are required
+in that order, even if there are no pre-defined directives, the identifier is
+still required. Think of pd: and ud: as private: and public: in a C++ class
+construct. Same logic is used here. All indenting is used for readability purposes, 
+the engine strips spaces from lines. The engine is very haphazard and unforgiving
+at this stage. Perhaps some feedback would help :).
+
+2.2 Installing
+==============
+Untar the AEI tar, toss it in a directory like /usr/bin if you wish, or whichever
+directory, home directory works fine too. Next:
+chmod 755 aei.tcl
+chmod 644 anytemplates.aei
+anytemplates.aei is a reference to any templated configuration script you
+write, the example.aei should _not_ be used, as it is largely incomplete--
+it just serves to show a very primitive setup.
+
+2.3 Directives and Syntax
+=========================
+To avoid making something exceptionally complex, the templates are very primitive,
+There are a few commands understood by the parser, which are:
+//     : this denotes the beginning of a comment, comments are ignored by the parser
+         and are only used to comment your templates. They cannot span more lines by
+		 escaping the CRLF (\r\n), which would be \ at the end of a line.
+pd:    : pd: stands for pre-defined, which is a collection of directives that is written
+         directly to the configuration file without the end-user's knowledge/input. All
+	     items marked by pd: are written without the end-user's consent.
+ud:    : The converse of pd:; ud: requires user-input.
+#      : # denotes a remarked line, which is interpreted by the engine as part of the help
+         blob for when ':help' is invoked. Each # is contiguous, i.e. when a new assignment
+	     directive is used (x,x,x), the prior help blob is flushed from the buffer.
+?      : This is automatically replaced by a user-defined value upon execution.
+         For example:
+	       set,username,? -- the ? is replaced by user-input, which is arbitrary.
+-      : '-' is automatically replaced by a 1/0 prompt (yes, no respectively). When '1'
+         is entered, the engine will write the first two parts (x,x,y -- x and x are written)
+	     to the file. If not, then the directive is ignored.
+TITLE: : This is just used to help break-down sections for the end-user. All TITLE:'s are
+         followed by an underlining of '='. This is not required. For example, TITLE: Introduction Stuff
+		 Will output as: 
+		 				"Introduction Stuff"
+						"=================="
+x,x,x  : Each comma-delimited value has a different meaning. The first x is the eggdrop directive itself,
+		 such as a set, or loadmodule, or source. The second portion is the variable name, which is placed
+		 in the output stream as the name which is to be modified. This step is used to simplify the system
+		 again, so at least a novice may be able to pick-up on what to input (without relying on ':help').
+		 The third one is the variable, in the 'ud:' section it is used as a place-holder, to be replaced
+		 by a '-' or a '?'. In 'pd:' this method can be ignored, as the data there is written verbatim.
+		 Any portion can be skipped, the x,x,x are not mandatory, but the ',,,' is mandatory. 
+		 'loadmodule uptime,,-' is legal, as-is, ',source scripts/sentinel.tcl,-' but 
+		 'source scripts/sentinel.tcl,-' is not legal.
+
+3.1 The Future
+==============
+Future implementations will/may include:
+  - an online repository of templates
+  - crontab support
+  - bulk configuration generation, given x amount of static directives, each one is
+    written and non-static ones are prompted. This method would work in such a way
+	that the end-user can define this stage.
+  - possible Tk interface
+  - better error handling maybe
+
+Any more suggestions? E-mail me. msaladna@intercarve.net
+
+	Regards,
+			Matt Saladna

@@ -1,0 +1,69 @@
+//////////////////////////////////////////////////////////////////
+// This is an example configuration template
+// to use with AEI
+//
+// One vital note: comments cannot reside on the same line
+// as other directive-related information
+// "//" must lie on a line by itself.
+// 
+// Matt Saladna/msaladna@intercarve.net
+// RCS: @(#) $Id: example.aei,v .5 2002/04/28 17:44:24 bliss Exp $
+//////////////////////////////////////////////////////////////////
+
+Newbie Configuration Template
+// This line defines the title, it _is_ required.
+
+pd:
+    set mod-path "modules/"
+    set help-path "help/"
+    set text-path "text/"
+    loadmodule dns
+    loadmodule channels
+    loadmodule server
+    loadmodule ctcp
+    loadmodule irc
+    loadmodule notes
+    loadmodule console
+    loadmodule blowfish
+    source scripts/sentinel.tcl
+    // we don't want some k-lines :).
+    source scripts/alltools.tcl
+    source scripts/action.fix.tcl
+    source scripts/compat.tcl
+    source scripts/userinfo.tcl
+    loadhelp userinfo.help
+ud:
+    TITLE: Basic Stuff
+    # This setting defines the username the bot uses on IRC. This setting has 
+    # no effect if an ident daemon is running on your bot's machine.
+    set,username,?
+    # Set the alternative nick which the bot uses on IRC if the nick specified by 'set nick' 
+    # is unavailable. All '?' characters will be replaced by random numbers.
+    set,altnick,?
+    # This is the line that fills the 'ircname' field, or whatever it's called,
+    # some call it whois-field some, ircname field, it's the field that displays
+    # information such as this:
+    #  --------------------------------------------------
+    #  | Bedlam (nem@u.nix.ca) (Canada)
+    #  | (ircname)  ...and I was drinking you goodbye
+    #  | (server)   irc.Qeast.net -  vendre par le propritaire
+    #  --------------------------------------------------  
+    # The "..and I was drinking you goodbye" is what this defines.    
+    set,realname,?
+    # This setting defines which contact person should be shown in .status,
+    # /msg help, and other places. You really should include this information.
+    # something like: Loser <e-mail: someguy@hotmail.com>
+    set,admin,?
+    # The following line defines where to store the bots userfile
+    set,userfile,?
+    # This line defines where the channel file is stored.
+    set,chanfile,?
+    # Input a list of servers for the bot to use
+    # In this type of format: {serverone.com
+    another.example.server:6667}
+    set,server,?
+    TITLE: Miscellaneous
+    # This defines if you want to use the uptime module;
+    # the uptime module interacts with a centralized database
+    # to track the bots with the most uptime.
+    loadmodule,uptime,-
